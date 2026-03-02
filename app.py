@@ -9,22 +9,13 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 import re
 
-# ==============================
-# Load Environment Variables
-# ==============================
 load_dotenv()
 
-# ==============================
-# Initialize LLM (UPDATED MODEL)
-# ==============================
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0
 )
 
-# ==============================
-# Extract Text From PDF
-# ==============================
 def extract_text_from_pdf(uploaded_file):
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
@@ -47,10 +38,8 @@ def extract_json_with_regex(text: str):
     Returns dict or None.
     """
     try:
-        # Remove markdown code fences لو موجودة
         text = re.sub(r"```json|```", "", text).strip()
 
-        # Regex لالتقاط أول JSON object
         match = re.search(r"\{.*\}", text, re.DOTALL)
 
         if not match:
